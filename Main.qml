@@ -55,6 +55,13 @@ Rectangle {
                         width: user_entry.width
                         KeyNavigation.backtab: user_entry
                         KeyNavigation.tab: login_button
+
+                        Keys.onPressed: {
+                            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                sddm.login(user_entry.text, pass_entry.text, session.index)
+                                event.accepted = true
+                            }
+                        }
                     }
 
                     Button {
@@ -62,6 +69,8 @@ Rectangle {
                         text: "Login"
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: user_entry.width
+
+                        onClicked: sddm.login(user_entry.text, pass_entry.text, session.index)
                     }
                 }
             }
