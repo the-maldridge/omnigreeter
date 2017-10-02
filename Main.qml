@@ -5,6 +5,12 @@ import SddmComponents 2.0
 Rectangle {
     color: "#999"
 
+    Background {
+        anchors.fill: parent
+        source: "background.png"
+        fillMode: Image.PreserveAspectCrop
+    }
+
     Rectangle {
         // This rectangle is solely to contain the login box.  This
         // permits it to be shown on only one screen.
@@ -12,7 +18,7 @@ Rectangle {
         anchors.fill: parent
         color: "transparent"
         visible: primaryScreen
-        
+
         Rectangle {
             // This is the background behind the login form.
             width: login_form.childrenRect.width
@@ -42,7 +48,7 @@ Rectangle {
                         focus: true
                         KeyNavigation.tab: pass_entry
                     }
-                    
+
                     PasswordBox {
                         id: pass_entry
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -86,21 +92,47 @@ Rectangle {
 
                 RowLayout {
                     // This contains the contents of the bottom tray.
+                    anchors.fill: parent
                     Layout.margins: 5
+
+                    Rectangle { width: 5}
 
                     ComboBox {
                         id: session
                         width: 150
                         height: 20
-                        
+                        anchors.verticalCenter: parent.verticalCenter
+
                         model: sessionModel
                         index: sessionModel.lastIndex
-                        
+
                         font.pixelSize: 11
                         font.family: "monospace"
                     }
+
+                    Text {
+                        id: clock
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: footer_right_edge.left
+
+                        color: "#fff"
+                        font.weight: Font.ExtraBold
+                    }
+
+                    Rectangle {
+                        id: footer_right_edge
+                        width: 5
+                        anchors.right: parent.right
+                    }
                 }
-            }   
+            }
         }
+    }
+
+    Timer {
+        interval: 500
+        repeat: true
+        running: true
+        onTriggered: clock.text = new Date().toLocaleString(Qt.locale("en_US"), "hh:mm:ss")
     }
 }
