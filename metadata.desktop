@@ -1,0 +1,10 @@
+[SddmGreeterTheme]
+Name=OmniGreeter
+Description=A theme that tries to do too much
+License=MIT
+Type=sddm-theme
+Version=1.0
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=omnigreeter
+Theme-API=2.0
