@@ -20,6 +20,67 @@ Rectangle {
         visible: primaryScreen
 
         Rectangle {
+            // This is the background behind the tray.
+            id: tray_bg
+            anchors.top: parent.top
+            height: tray.childrenRect.height
+            width: tray.childrenRect.width
+            color: "#000"
+            opacity: 0.6
+        }
+
+        Rectangle {
+            // This is the real tray
+            id: tray
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+
+            GridLayout {
+                // This exists solely to process the margins
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+
+                RowLayout {
+                    // This contains the contents of the bottom tray.
+                    anchors.fill: parent
+                    Layout.margins: 5
+
+                    Rectangle { width: 5}
+
+                    ComboBox {
+                        id: session
+                        width: 150
+                        height: 20
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        model: sessionModel
+                        index: sessionModel.lastIndex
+
+                        font.pixelSize: 11
+                        font.family: "monospace"
+                    }
+
+                    Text {
+                        id: clock
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: footer_right_edge.left
+
+                        color: "#fff"
+                        font.weight: Font.ExtraBold
+                    }
+
+                    Rectangle {
+                        id: footer_right_edge
+                        width: 5
+                        anchors.right: parent.right
+                    }
+                }
+            }
+        }
+
+        Rectangle {
             // This is the background behind the login form.
             width: login_form.childrenRect.width
             height: login_form.childrenRect.height
@@ -71,67 +132,6 @@ Rectangle {
                         width: user_entry.width
 
                         onClicked: sddm.login(user_entry.text, pass_entry.text, session.index)
-                    }
-                }
-            }
-        }
-
-        Rectangle {
-            // This is the background behind the bottom tray.
-            id: bottom_tray_bg
-            anchors.bottom: parent.bottom
-            height: bottom_tray.childrenRect.height
-            width: bottom_tray.childrenRect.width
-            color: "#000"
-            opacity: 0.6
-        }
-
-        Rectangle {
-            // This is the real tray
-            id: bottom_tray
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-
-            GridLayout {
-                // This exists solely to process the margins
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-
-                RowLayout {
-                    // This contains the contents of the bottom tray.
-                    anchors.fill: parent
-                    Layout.margins: 5
-
-                    Rectangle { width: 5}
-
-                    ComboBox {
-                        id: session
-                        width: 150
-                        height: 20
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        model: sessionModel
-                        index: sessionModel.lastIndex
-
-                        font.pixelSize: 11
-                        font.family: "monospace"
-                    }
-
-                    Text {
-                        id: clock
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.right: footer_right_edge.left
-
-                        color: "#fff"
-                        font.weight: Font.ExtraBold
-                    }
-
-                    Rectangle {
-                        id: footer_right_edge
-                        width: 5
-                        anchors.right: parent.right
                     }
                 }
             }
