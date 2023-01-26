@@ -22,7 +22,6 @@ Rectangle {
         Rectangle {
             // This is the background behind the tray.
             id: tray_bg
-            anchors.top: parent.top
             height: tray.childrenRect.height
             width: tray.childrenRect.width
             color: "#000"
@@ -32,28 +31,22 @@ Rectangle {
         Rectangle {
             // This is the real tray
             id: tray
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
 
             GridLayout {
                 // This exists solely to process the margins
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
+                Layout.fillWidth: true
+                width: login_container.width
 
                 RowLayout {
                     // This contains the contents of the bottom tray.
-                    anchors.fill: parent
                     Layout.margins: 5
-
-                    Rectangle { width: 5}
+                    Layout.fillWidth: true
 
                     ComboBox {
                         id: session
                         width: 150
                         height: 20
-                        anchors.verticalCenter: parent.verticalCenter
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
 
                         model: sessionModel
                         index: sessionModel.lastIndex
@@ -62,19 +55,14 @@ Rectangle {
                         font.family: "monospace"
                     }
 
+                    Item { Layout.fillWidth: true }
+
                     Text {
                         id: clock
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.right: footer_right_edge.left
+                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
                         color: "#fff"
                         font.weight: Font.ExtraBold
-                    }
-
-                    Rectangle {
-                        id: footer_right_edge
-                        width: 5
-                        anchors.right: parent.right
                     }
                 }
             }
@@ -98,12 +86,12 @@ Rectangle {
                 // margins of the ColumnLayout within it.
                 anchors.centerIn: parent
                 ColumnLayout {
-                    anchors.centerIn: parent
+                    Layout.alignment: Qt.AlignHCenter
                     Layout.margins: 10
 
                     TextBox {
                         id: user_entry
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        Layout.alignment: Qt.AlignHCenter
                         width: 200
 
                         focus: true
@@ -112,7 +100,7 @@ Rectangle {
 
                     PasswordBox {
                         id: pass_entry
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        Layout.alignment: Qt.AlignHCenter
                         width: user_entry.width
                         KeyNavigation.backtab: user_entry
                         KeyNavigation.tab: login_button
@@ -128,7 +116,7 @@ Rectangle {
                     Button {
                         id: login_button
                         text: "Login"
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        Layout.alignment: Qt.AlignHCenter
                         width: user_entry.width
 
                         onClicked: sddm.login(user_entry.text, pass_entry.text, session.index)
