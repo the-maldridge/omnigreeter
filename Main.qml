@@ -58,6 +58,14 @@ Rectangle {
                     Item { Layout.fillWidth: true }
 
                     Text {
+                        id: hostname
+                        Layout.alignment: Qt.AlignVCenter
+                        color: "#fff"
+                        font.weight: Font.ExtraBold
+                        text: sddm.hostName
+                    }
+
+                    Text {
                         id: clock
                         Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
